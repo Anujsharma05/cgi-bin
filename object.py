@@ -14,8 +14,13 @@ commands.getstatusoutput('sudo mkdir -p /mnt/'+name)
 
 commands.getstatusoutput('sudo mount /dev/blockstorage/'+name+' /mnt/'+name)
 
-entry="sudo echo '/mnt/{} *(rw,no_root_squash)' >/etc/exports".format(name)
-commands.getstatusoutput(entry)
+entry_check=commands.getstatusoutput('cat /etc/exports | grep ' + name)
+if entry_check[0]==0:
+	pass
+else:
+	entry="sudo echo '/mnt/{} *(rw,no_root_squash)' >>/etc/exports".format(name)
+	commands.getstatusoutput(entry)
+
 
 commands.getstatusoutput('sudo systemctl restart nfs-utils')
 commands.getstatusoutput('sudo systemctl restart nfs-server')

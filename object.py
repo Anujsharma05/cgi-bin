@@ -25,11 +25,11 @@ else:
 commands.getstatusoutput('sudo systemctl restart nfs-utils')
 commands.getstatusoutput('sudo systemctl restart nfs-server')
 
-dir_create="sudo echo 'mkdir -p /media/{}' >/var/www/cgi-bin/client.sh".format(name)
+dir_create="sudo echo 'mkdir -p /media/{}' >/var/www/cgi-bin/object_client.sh".format(name)
 commands.getstatusoutput(dir_create)
-dir_mount="sudo echo 'mount 192.168.122.163:/mnt/{} /media/{}' >>/var/www/cgi-bin/client.sh".format(name,name)
+dir_mount="sudo echo 'mount 192.168.122.163:/mnt/{} /media/{}' >>/var/www/cgi-bin/object_client.sh".format(name,name)
 commands.getstatusoutput(dir_mount)
 
-commands.getstatusoutput('sudo tar cvf /var/www/html/client.tar client.sh') 
+commands.getstatusoutput('sudo tar cvf /var/www/html/object_client.tar object_client.sh') 
 
-print "<META HTTP-EQUIV='refresh' content='0; url=/client.tar' target='_blank'/>"
+print "<META HTTP-EQUIV='refresh' content='0; url=/object_client.tar' target='_blank'/>"
